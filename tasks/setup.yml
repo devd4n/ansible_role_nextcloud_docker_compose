@@ -68,11 +68,10 @@
     minute: "*/5"
     job: "docker exec -u www-data {{ docker_nextcloud_container_prefix }}-app php {{ docker_nextcloud_html_dir }}/cron.php"
 
-- name: check if CAN_INSTALL exists (installation is needed)
-  community.docker.docker_container_exec:
-    container: "{{ docker_nextcloud_container_prefix }}-app"
-    command: test -f "{{ docker_nextcloud_config_dir }}/CAN_INSTALL"
-  register: can_install
+- name: check if CAN_INSTALL file exists => installation required
+  ansible.builtin.stat:
+    path: "{{ docker_nextcloud_config_dir }}/CAN_INSTALL"
+  register: can_install_file
 
 - name: run nextcloud installation (without wizard) (if CAN_INSTALL exists)
   community.docker.docker_container_exec:
@@ -82,4 +81,4 @@
                php occ maintenance:install
                --admin-user '{{ docker_nextcloud_admin_user }}'
                --admin-pass '{{ docker_nextcloud_admin_password }}'"
-  when: can_install.rc == 0
+   when: can_install_file.stat.exists
