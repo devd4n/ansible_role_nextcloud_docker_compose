@@ -12,6 +12,7 @@ docker_nextcloud_admin_password: "@Passwd!1234"
 
 docker_compose_project_dir: /opt/docker/containers/nextcloud
 docker_nextcloud_www_dir: /opt/docker/containers/nextcloud/www          # www dir directory outside of docker container mapped to docker containers data dir
+docker_nextcloud_html_dir: /opt/docker/containers/nextcloud/www/html
 docker_nextcloud_config_dir: /opt/docker/containers/nextcloud/config    # config directory outside of docker container mapped to docker containers data dir
 docker_nextcloud_data_dir: /opt/docker/containers/nextcloud/data        # Host directory outside of docker container mapped to docker containers data dir
 docker_nextcloud_db_dir: /opt/docker/containers/nextcloud/db
