@@ -1,0 +1,26 @@
+---
+
+docker_nextcloud_action: "setup"     # setup | teardown
+
+docker_nextcloud_image: 32.0.1-apache     # image version (default == latest)
+docker_nextcloud_mariadb_image: 11.4
+
+docker_nextcloud_autoupdate_images: true
+
+docker_nextcloud_admin_user: nxtadmin
+docker_nextcloud_admin_password: @Passwd!1234
+
+docker_compose_project_dir: /opt/docker/containers/nextcloud
+docker_nextcloud_www_dir: /opt/docker/containers/nextcloud/www          # www dir directory outside of docker container mapped to docker containers data dir
+docker_nextcloud_config_dir: /opt/docker/containers/nextcloud/config    # config directory outside of docker container mapped to docker containers data dir
+docker_nextcloud_data_dir: /opt/docker/containers/nextcloud/data        # Host directory outside of docker container mapped to docker containers data dir
+
+docker_nextcloud_fqdn: nextcloud.host.local
+docker_nextcloud_container_prefix: nextcloud
+docker_nextcloud_proxy_network: nextcloud_network
+docker_nextcloud_custom_apps_dir: /opt/docker/containers/nextcloud/custom_apps
+
+docker_nextcloud_mariadb_root_password: @Passwd!1234
+docker_nextcloud_mariadb_db_name: nextcloud-db
+docker_nextcloud_mariadb_db_user: nextcloud-db_user
+docker_nextcloud_mariadb_user_password: @Passwd!1234

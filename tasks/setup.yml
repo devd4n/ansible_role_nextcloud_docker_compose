@@ -1,0 +1,49 @@
+---
+- name: Check if Docker is installed
+  ansible.builtin.command:
+    cmd: docker --version
+  register: docker_check
+  ignore_errors: true
+
+- name: Fail if Docker is not installed
+  ansible.builtin.fail:
+    msg: "Docker is not installed! Please install Docker before running the Nextcloud setup role."
+  when: docker_check.failed
+
+- name: Check if Docker Compose plugin is installed
+  ansible.builtin.command:
+    cmd: docker compose version
+  register: compose_check
+  ignore_errors: true
+
+- name: Fail if Docker Compose is not installed
+  ansible.builtin.fail:
+    msg: "Docker Compose is not installed! Please install Docker Compose (or the Docker Compose CLI) before running the Nextcloud setup role."
+  when: compose_check.failed
+
+- name: Ensure proxy network exists
+  community.docker.docker_network:
+    name: "{{ docker_nextcloud_proxy_network }}"
+    state: present
+
+- name: Create docker-compose file
+  template:
+    src: docker-compose.yaml.j2
+    dest: "{{ docker_compose_project_dir }}/docker-compose.yaml"
+    mode: '0644'
+
+- name: Deploy Nextcloud stack
+  community.docker.docker_compose:
+    project_src: "{{ docker_compose_project_dir }}"
+    state: present
+    pull: "{{ docker_nextcloud_autoupdate_images | bool }}"
+    recreate: "{{ 'smart' if docker_nextcloud_autoupdate_images else 'never' }}"
+    remove_orphans: true
+
+- name: Run Nextcloud cron every 5 minutes
+  ansible.builtin.cron:
+    name: "nextcloud cron"
+    minute: "*/5"
+    job: "docker exec -u www-data {{ docker_nextcloud_container_prefix }}-app php /var/www/html/cron.php"
+
+

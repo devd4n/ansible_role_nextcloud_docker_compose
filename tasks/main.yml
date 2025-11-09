@@ -1,0 +1,8 @@
+---
+- name: Run setup tasks
+  include_tasks: setup.yml
+  when: docker_nextcloud_action == "setup"
+
+- name: Run teardown tasks
+  include_tasks: teardown.yml
+  when: docker_nextcloud_action == "teardown"
