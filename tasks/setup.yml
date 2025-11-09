@@ -57,7 +57,7 @@
 
 - name: Deploy Nextcloud stack with Docker Compose CLI
   ansible.builtin.command:
-    cmd: docker compose up -d --pull
+    cmd: docker compose up -d --pull always
     chdir: "{{ docker_compose_project_dir }}"
   become: true
 
