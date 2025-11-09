@@ -71,6 +71,6 @@
     command: >
       bash -c "cd /var/www/html &&
                php occ maintenance:install
-               --admin-user "{{ docker_nextcloud_admin_user }}"
-               --admin-pass "{{ docker_nextcloud_admin_password }}"
+               --admin-user '{{ docker_nextcloud_admin_user }}'
+               --admin-pass '{{ docker_nextcloud_admin_password }}'"
   when: can_install_file.stat.exists
