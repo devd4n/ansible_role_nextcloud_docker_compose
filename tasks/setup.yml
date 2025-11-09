@@ -48,14 +48,6 @@
     dest: "{{ docker_compose_project_dir }}/docker-compose.yaml"
     mode: '0644'
 
-#- name: Deploy Nextcloud stack
-#  community.docker.docker_compose:
-#    project_src: "{{ docker_compose_project_dir }}"
-#    state: present
-#    pull: "{{ docker_nextcloud_autoupdate_images | bool }}"
-#    recreate: "{{ 'smart' if docker_nextcloud_autoupdate_images else 'never' }}"
-#    remove_orphans: true
-
 - name: Deploy Nextcloud stack with Docker Compose CLI
   ansible.builtin.command:
     cmd: docker compose up -d --pull always
@@ -81,4 +73,4 @@
                php occ maintenance:install
                --admin-user '{{ docker_nextcloud_admin_user }}'
                --admin-pass '{{ docker_nextcloud_admin_password }}'"
-   when: can_install_file.stat.exists
+  when: can_install_file.stat.exists
