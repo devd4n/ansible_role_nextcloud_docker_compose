@@ -40,20 +40,26 @@
     - "{{ docker_nextcloud_config_dir }}"
     - "{{ docker_nextcloud_data_dir }}"
     - "{{ docker_nextcloud_db_dir }}"
-    
+
 - name: Create docker-compose file
   template:
     src: docker-compose.yaml.j2
     dest: "{{ docker_compose_project_dir }}/docker-compose.yaml"
     mode: '0644'
 
-- name: Deploy Nextcloud stack
-  community.docker.docker_compose:
-    project_src: "{{ docker_compose_project_dir }}"
-    state: present
-    pull: "{{ docker_nextcloud_autoupdate_images | bool }}"
-    recreate: "{{ 'smart' if docker_nextcloud_autoupdate_images else 'never' }}"
-    remove_orphans: true
+#- name: Deploy Nextcloud stack
+#  community.docker.docker_compose:
+#    project_src: "{{ docker_compose_project_dir }}"
+#    state: present
+#    pull: "{{ docker_nextcloud_autoupdate_images | bool }}"
+#    recreate: "{{ 'smart' if docker_nextcloud_autoupdate_images else 'never' }}"
+#    remove_orphans: true
+
+- name: Deploy Nextcloud stack with Docker Compose CLI
+  ansible.builtin.command:
+    cmd: docker compose up -d --pull --remove-orphans
+    chdir: "{{ docker_compose_project_dir }}"
+  become: true
 
 - name: Run Nextcloud cron every 5 minutes
   ansible.builtin.cron:
