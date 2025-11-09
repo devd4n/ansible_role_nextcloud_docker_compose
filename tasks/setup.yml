@@ -30,8 +30,8 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ docker_user | default(ansible_user) }}"
-    group: "{{ docker_user | default(ansible_user) }}"
+    owner: "{{ 82 if 'alpine' in docker_nextcloud_image else 33 }}"
+    group: "{{ 82 if 'alpine' in docker_nextcloud_image else 33 }}"
     mode: '0755'
     recurse: yes
   loop:
