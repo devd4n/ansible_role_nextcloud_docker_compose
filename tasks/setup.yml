@@ -26,6 +26,21 @@
     name: "{{ docker_nextcloud_proxy_network }}"
     state: present
 
+- name: Ensure Nextcloud directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ docker_user | default(ansible_user) }}"
+    group: "{{ docker_user | default(ansible_user) }}"
+    mode: '0755'
+    recurse: yes
+  loop:
+    - "{{ docker_compose_project_dir }}"
+    - "{{ docker_nextcloud_www_dir }}"
+    - "{{ docker_nextcloud_config_dir }}"
+    - "{{ docker_nextcloud_data_dir }}"
+    - "{{ docker_nextcloud_db_dir }}"
+    
 - name: Create docker-compose file
   template:
     src: docker-compose.yaml.j2
