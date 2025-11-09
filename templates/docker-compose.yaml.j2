@@ -26,7 +26,7 @@ services:
       - "{{ docker_nextcloud_proxy_network }}"
       - nextcloud-db-network
     ports:
-      - "8080:80"
+      - "{{ docker_nextcloud_http_port }}:80"
     volumes:
       - "{{ docker_nextcloud_www_dir }}:/var/www/html"
       - "{{ docker_nextcloud_config_dir }}:/var/www/html/config"
@@ -46,6 +46,7 @@ services:
 
 
 networks:
-  {{ docker_nextcloud_proxy_network }}:
+  "{{ docker_nextcloud_proxy_network }}":
     external: true
   nextcloud-db-network:
+    external: false

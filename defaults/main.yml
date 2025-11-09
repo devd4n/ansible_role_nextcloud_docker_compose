@@ -17,6 +17,7 @@ docker_nextcloud_data_dir: /opt/docker/containers/nextcloud/data        # Host d
 docker_nextcloud_db_dir: /opt/docker/containers/nextcloud/db
 
 docker_nextcloud_fqdn: nextcloud.host.local
+docker_nextcloud_http_port: 80
 docker_nextcloud_container_prefix: nextcloud
 docker_nextcloud_proxy_network: nextcloud_network
 docker_nextcloud_custom_apps_dir: /opt/docker/containers/nextcloud/custom_apps
