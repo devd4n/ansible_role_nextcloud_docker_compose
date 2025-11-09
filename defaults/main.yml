@@ -14,6 +14,7 @@ docker_compose_project_dir: /opt/docker/containers/nextcloud
 docker_nextcloud_www_dir: /opt/docker/containers/nextcloud/www          # www dir directory outside of docker container mapped to docker containers data dir
 docker_nextcloud_config_dir: /opt/docker/containers/nextcloud/config    # config directory outside of docker container mapped to docker containers data dir
 docker_nextcloud_data_dir: /opt/docker/containers/nextcloud/data        # Host directory outside of docker container mapped to docker containers data dir
+docker_nextcloud_db_dir: /opt/docker/containers/nextcloud/db
 
 docker_nextcloud_fqdn: nextcloud.host.local
 docker_nextcloud_container_prefix: nextcloud
