@@ -69,7 +69,7 @@
   community.docker.docker_container_exec:
     container: "{{ docker_nextcloud_container_prefix }}-app"
     command: >
-      bash -c "cd {{ docker_nextcloud_html_dir }} &&
+      bash -c "cd /var/www/html &&
                php occ maintenance:install
                --admin-user '{{ docker_nextcloud_admin_user }}'
                --admin-pass '{{ docker_nextcloud_admin_password }}'"
