@@ -33,7 +33,6 @@ services:
       - "{{ docker_nextcloud_www_dir }}:/var/www/html"
       - "{{ docker_nextcloud_config_dir }}:/var/www/html/config"
       - "{{ docker_nextcloud_data_dir }}:/var/www/html/data"
-      - "{{ docker_nextcloud_config_dir }}/php.ini:/usr/local/etc/php/php.ini"
       - "{{ docker_nextcloud_custom_apps_dir }}:/var/www/html/custom_apps"
     environment:
       - MYSQL_PASSWORD="{{ docker_nextcloud_mariadb_user_password }}"
