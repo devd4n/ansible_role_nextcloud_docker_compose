@@ -5,6 +5,8 @@ services:
     container_name: {{ docker_nextcloud_container_prefix }}-db
     image: mariadb:{{ docker_nextcloud_mariadb_image }}
     restart: always
+    security_opt:
+      - seccomp:unconfined   # fix maria db error "initialize timers" https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1135889824
     networks:
       - nextcloud-db-network
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
