@@ -6,7 +6,7 @@ services:
     security_opt:
       - seccomp:unconfined   # fix maria db error "initialize timers" https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1135889824
     networks:
-      - nextcloud-db-network
+      - "{{ nextcloud-redis-network}}"
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - "{{ docker_nextcloud_db_dir }}:/var/lib/mysql"
@@ -24,7 +24,8 @@ services:
     restart: always
     networks:
       - "{{ docker_nextcloud_proxy_network }}"
-      - nextcloud-db-network
+      - "{{ docker_nextcloud_redis_network }}"
+      - "{{ nextcloud-redis-network}}"
     ports:
       - "{{ docker_nextcloud_http_port }}:80"
     volumes:
@@ -42,10 +43,20 @@ services:
       - NEXTCLOUD_ADMIN_USER={{ docker_nextcloud_admin_user }}
       - NEXTCLOUD_ADMIN_PASSWORD={{ docker_nextcloud_admin_password }}
       - NEXTCLOUD_TRUSTED_DOMAINS={{ docker_nextcloud_fqdn }}
+      - REDIS_HOST=redis
 
+  redis:
+      container_name: {{ docker_nextcloud_container_prefix }}-redis
+      image: redis:alpine
+      volumes:
+        - "{{ docker_nextcloud_www_dir }}:/data"
+      networks: 
+        - "{{ docker_nextcloud_redis_network }}"
 
 networks:
   "{{ docker_nextcloud_proxy_network }}":
     external: true
-  nextcloud-db-network:
+  "{{ nextcloud-redis-network}}":
+    external: false
+  "{{ docker_nextcloud_redis_network }}"
     external: false

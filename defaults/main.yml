@@ -16,12 +16,14 @@ docker_nextcloud_html_dir: /opt/docker/containers/nextcloud/www/html
 docker_nextcloud_config_dir: /opt/docker/containers/nextcloud/config    # config directory outside of docker container mapped to docker containers data dir
 docker_nextcloud_data_dir: /opt/docker/containers/nextcloud/data        # Host directory outside of docker container mapped to docker containers data dir
 docker_nextcloud_db_dir: /opt/docker/containers/nextcloud/db
+docker_nextcloud_custom_apps_dir: /opt/docker/containers/nextcloud/custom_apps
 
 docker_nextcloud_fqdn: nextcloud.host.local
 docker_nextcloud_http_port: 80
 docker_nextcloud_container_prefix: nextcloud
-docker_nextcloud_proxy_network: nextcloud_network
-docker_nextcloud_custom_apps_dir: /opt/docker/containers/nextcloud/custom_apps
+docker_nextcloud_proxy_network: nextcloud-proxy-network
+docker_nextcloud_redis_network: nextcloud-redis-network
+docker_nextcloud_db_network: nextcloud-db-network
 
 docker_nextcloud_mariadb_root_password: "@Passwd-1234" # Only the following characters are allowed in an Login: "a-z", "A-Z", "0-9", spaces and "_.@-'"
 docker_nextcloud_mariadb_db_name: nextcloud-db
